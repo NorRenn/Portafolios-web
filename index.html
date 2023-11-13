@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Trabajos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 0;
+            overflow: auto;
+        }
+
+        .header {
+            margin-top: 2em;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* Fondo semi-transparente */
+            border: 2px solid rgba(0, 0, 0, 0.3); /* Borde semi-transparente */
+        }
+
+        .trabajos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .trabajo {
+            margin: 1em;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* Fondo semi-transparente */
+            border: 2px solid rgba(0, 0, 0, 0.3); /* Borde semi-transparente */
+        }
+
+        .trabajo img {
+            height: auto;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        #overlay {
+            /* ... estilos para overlay ... */
+        }
+
+        #ventana-emergente {
+            /* ... estilos para ventana emergente ... */
+        }
+
+        canvas:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Portafolios Experimental</h1>
+        <h2>En esta página se exhibirán los encargos y tareas realizados durante el curso de Imágen Escrita 2023.</h2>
+        <h2>Profesor a cargo del curso: Helbert Spencer</h2>
+        <h2>Página perteneciente a la alumna: Yion Yi Carvajal Chen</h2>
+        <h4>Al ser un portafolios de prueba, está abierta la posibilidad de cambios y mejoras posteriores</h3>
+    </div>
+
+    <div class="trabajos-container">
+        <div class="trabajo">
+            <h3>1° Encargo: Introducción a P5.JS</h3>
+            <a href="https://norrenn.github.io/Primer-Encargo-IE/" target="_blank">
+                <img src="imagenes pagina/Primer encargo.png" alt="Trabajo 1">
+            </a>
+        </div>
+
+         <div class="trabajo">
+            <h3>2° Encargo: Experimentación con formas, </h3>
+                 <h3>comportamientos y elementos</h3>
+            <a href="https://norrenn.github.io/Tarea-02/" target="_blank">
+                <img src="imagenes pagina/Segundo encargo.png" alt="Trabajo 2">
+            </a>
+        </div>
+
+        <div class="trabajo">
+            <h3>3° Encargo: Película a modo de timbre</h3>
+            <a href="https://norrenn.github.io/Tarea-N-3-Imagen-Escrita/" target="_blank">
+                <img src="imagenes pagina/tercer_encargo.png" alt="Trabajo 3">
+            </a>
+        </div>
+
+        <div class="trabajo">
+            <h3>4° Encargo: Sketch experimental de recursión</h3>
+            <a href="https://norrenn.github.io/Encargo-04-IE/" target="_blank">
+                <img src="imagenes pagina/Cuarto encargo.png" alt="Trabajo 4">
+            </a>
+        </div>
+
+        <div class="trabajo">
+            <h3>5° Encargo: Elementos con valor plástico</h3>
+            <a href="https://norrenn.github.io/Encargo-05-IE/" target="_blank">
+                <img src="imagenes pagina/Quinto encargo.png" alt="Trabajo 5">
+            </a>
+        </div>
+
+        <div class="trabajo">
+            <h3>6° Encargo: Pizarra RGB</h3>
+            <a href="https://norrenn.github.io/Encargo-6-IE-2023/" target="_blank">
+                <img src="imagenes pagina/Sexto_encargo.png" alt="Trabajo 6">
+            </a>
+        </div>
+    </div>
+
+    <canvas id="myCanvas"></canvas>
+
+    <div id="overlay" class="overlay" onclick="cerrarVentana()"></div>
+    <div id="ventana-emergente" class="ventana-emergente">
+        <span class="cerrar" onclick="cerrarVentana()">&times;</span>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            function getRandomColor() {
+                const colors = ["#FFD700", "#9370DB", "#87CEEB", "#98FB98", "#FFC0CB"];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            function drawRandomLines(color) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < 50; i++) {
+                    const x1 = Math.random() * canvas.width;
+                    const y1 = Math.random() * canvas.height;
+                    const x2 = Math.random() * canvas.width;
+                    const y2 = Math.random() * canvas.height;
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            }
+
+            function changeColorOnHover() {
+                canvas.addEventListener("mouseover", function () {
+                    const color = getRandomColor();
+                    drawRandomLines(color);
+                });
+            }
+
+            drawRandomLines(getRandomColor());
+            changeColorOnHover();
+
+            window.addEventListener("resize", function () {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                drawRandomLines(getRandomColor());
+            });
+        });
+    </script>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
